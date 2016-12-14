@@ -1,0 +1,42 @@
+#include <fstream>
+#include <iostream>
+#include <ctime>
+#include <vector>
+#include <string>
+using namespace std;
+
+int column(){
+    int xSize;
+    int ySize;
+    int columnAmount;
+    std::ofstream ofs;
+    ofs.open("Write.csv",ofstream::out);
+    ofstream output ("Write.csv",ofstream::out);
+    cout<<"Input the desired number of rows."<<endl;
+    cin >> ySize;
+    cout<<"Input the desired number of colunms."<<endl;
+    cin >> xSize;
+    vector<string>  vect;
+    for(int rowAmount=1;rowAmount<=ySize;rowAmount++){
+        for(int columnAmount=1;columnAmount<=xSize;columnAmount++){
+            string in_str;
+            cin >> in_str;
+            vect.push_back(in_str);
+        }
+        time_t now = time(0);
+        string date = ctime(&now);
+        string date_str = date.substr(0,19);
+        output<<date_str<<",";
+        for(auto s: vect){
+            output << s << ",";
+        }
+        vect.clear();
+        output<<" \n";
+    }
+    output.close();
+}
+
+int main(){
+    column();
+}
+
